@@ -302,12 +302,12 @@ async def start_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🎯 <b>ᴜsᴀɢᴇ:</b>\n"
         "<code>/like &lt;region&gt; &lt;uid&gt;</code>\n\n"
         "📌 <b>ᴇxᴀᴍᴘʟᴇ:</b>\n"
-        "<code>/like BD 16983198706</code>\n"
+        "<code>/like IND 12345609</code>\n"
         "━━━━━━━━━━━━━━━━━━━━"
     )
     keyboard = [
         [InlineKeyboardButton("📖 ʜᴇʟᴘ", callback_data="help"),
-         InlineKeyboardButton("👑 ᴄʀᴇᴅɪᴛs", callback_data="credits")]
+         InlineKeyboardButton("📌 ɪɴꜰᴏ", callback_data="credits")]
     ]
     await update.effective_message.reply_text(
         text,
@@ -510,10 +510,8 @@ async def relike_callback(query, context):
 
 async def credits_callback(query):
     await query.message.reply_text(
-        "👑 <b>ᴄʀᴇᴅɪᴛs</b>\n\n"
-        "🔧 <b>ᴅᴇᴠᴇʟᴏᴘᴇʀ:</b> <a href='https://t.me/Binnay'>Binnay</a>\n"
-        "⚡ <b>ᴘᴏᴡᴇʀᴇᴅ ʙʏ:</b> Binnay API\n"
-        "💎 <b>ᴋᴇʏ:</b> <code>CRAXX</code>",
+        "<b>Information</b>\n\n"
+        "ᴛᴏ ɢᴇᴛ ᴅᴀɪʟʏ ꜰʀᴇᴇ ʟɪᴋᴇꜱ ᴏɴ ᴀɴʏ ᴏꜰ ʏᴏᴜʀ ᴜɪᴅꜱ, ᴠᴇʀɪꜰʏ ᴛʜᴇ ʟɪɴᴋ ᴡɪᴛʜ ᴛʜɪꜱ ʙᴏᴛ @ɢᴇᴛꜱᴇᴛ𝟤𝟢_ʙᴏᴛ ᴅᴀɪʟʏ ᴀɴᴅ ɢᴇᴛ ꜰʀᴇᴇ ʟɪᴋᴇꜱ.",
         parse_mode="HTML",
         disable_web_page_preview=True,
     )
