@@ -20,7 +20,7 @@ from telegram.ext import (
 
 # ================= CONFIG =================
 BOT_TOKEN = "8617664721:AAGZIaFutCbjfUEwdbIO6ogdsL5Pk6la_Tg"
-API_URL = "https://like-test-bhuwan.vercel.app/like"
+API_URL = "https://tg-20-likes-one.vercel.app/like"
 API_KEY = "CRAXX"
 
 # Optional fixed admin IDs. Leave empty if every Telegram group admin
