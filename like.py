@@ -242,14 +242,41 @@ def consume_slot(chat_id, user_id):
     save_db()
 
 
-def format_like_result(data, region, uid, used):
-    nickname = data.get("PlayerNickname", "N/A")
+def get_like_values(data, region, uid):
+    """Read the current API response fields.
+
+    Current API response:
+      Nickname, Before, After, Given, Region, UID, status
+    The old field names are kept as fallbacks so an older API response
+    will still work.
+    """
+    nickname = data.get("Nickname", data.get("PlayerNickname", "N/A"))
     level = data.get("Level", "N/A")
     reg = data.get("Region", region)
     uid_resp = data.get("UID", uid)
-    before = data.get("LikesbeforeCommand", 0)
-    after = data.get("LikesafterCommand", 0)
-    given = data.get("LikesGivenByAPI", 0)
+    before = data.get("Before", data.get("LikesbeforeCommand", 0))
+    after = data.get("After", data.get("LikesafterCommand", 0))
+    given = data.get("Given", data.get("LikesGivenByAPI", 0))
+    return nickname, level, reg, uid_resp, before, after, given
+
+
+def api_response_is_valid(data):
+    """The user's current API returns status=1 and Nickname/Before/After/Given."""
+    return (
+        isinstance(data, dict)
+        and data.get("status") == 1
+        and "Nickname" in data
+    ) or (
+        isinstance(data, dict)
+        and data.get("status") in (1, 2)
+        and "PlayerNickname" in data
+    )
+
+
+def format_like_result(data, region, uid, used):
+    nickname, level, reg, uid_resp, before, after, given = get_like_values(
+        data, region, uid
+    )
 
     return (
         "╔══════════════════════╗\n"
@@ -364,7 +391,7 @@ async def like_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
             return
 
-        if data.get("status") not in (2, 1) and "PlayerNickname" not in data:
+        if not api_response_is_valid(data):
             err = data.get("error") or data.get("message") or "ᴜɴᴋɴᴏᴡɴ ᴇʀʀᴏʀ"
             await msg.edit_text(
                 f"❌ <b>ꜰᴀɪʟᴇᴅ!</b>\n\n"
@@ -375,7 +402,7 @@ async def like_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
             return
 
-        given = data.get("LikesGivenByAPI", 0)
+        given = data.get("Given", data.get("LikesGivenByAPI", 0))
         try:
             given_num = int(given or 0)
         except (TypeError, ValueError):
@@ -456,14 +483,14 @@ async def relike_callback(query, context):
             return
         anim_task.cancel()
 
-        if not isinstance(resp, dict) or "PlayerNickname" not in resp:
+        if not api_response_is_valid(resp):
             await msg.edit_text(
                 "❌ <b>ꜰᴀɪʟᴇᴅ ᴛᴏ ʀᴇ-ʟɪᴋᴇ</b>",
                 parse_mode="HTML",
             )
             return
 
-        given = resp.get("LikesGivenByAPI", 0)
+        given = resp.get("Given", resp.get("LikesGivenByAPI", 0))
         try:
             given_num = int(given or 0)
         except (TypeError, ValueError):
@@ -837,7 +864,7 @@ async def text_admin_uid_handler(update: Update, context: ContextTypes.DEFAULT_T
         return
     anim_task.cancel()
 
-    if not isinstance(data, dict) or "PlayerNickname" not in data:
+    if not api_response_is_valid(data):
         await msg.edit_text(
             "❌ <b>Failed to get a valid API response.</b>",
             parse_mode="HTML",
