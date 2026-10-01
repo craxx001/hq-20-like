@@ -305,14 +305,9 @@ async def start_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "<code>/like IND 12345609</code>\n"
         "━━━━━━━━━━━━━━━━━━━━"
     )
-    keyboard = [
-        [InlineKeyboardButton("📖 ʜᴇʟᴘ", callback_data="help"),
-         InlineKeyboardButton("📌 ɪɴꜰᴏ", callback_data="credits")]
-    ]
     await update.effective_message.reply_text(
         text,
         parse_mode="HTML",
-        reply_markup=InlineKeyboardMarkup(keyboard),
         disable_web_page_preview=True,
     )
 
@@ -416,17 +411,10 @@ async def like_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
             used = get_usage(chat.id, user.id).get("used", 0)
 
         text = format_like_result(data, region, uid, used)
-        keyboard = [
-            [InlineKeyboardButton(
-                "🔄 ᴀɢᴀɪɴ ʟɪᴋᴇ",
-                callback_data=f"relike|{region}|{uid}",
-            )]
-        ]
 
         await msg.edit_text(
             text,
             parse_mode="HTML",
-            reply_markup=InlineKeyboardMarkup(keyboard),
             disable_web_page_preview=True,
         )
 
