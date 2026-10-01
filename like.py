@@ -279,9 +279,9 @@ def format_like_result(data, region, uid, used):
     )
 
     return (
-        "╔════════════════════╗\n"
+        "╔══════════════════╗\n"
         "   ❤️ <b>ʟɪᴋᴇ sᴜᴄᴄᴇssꜰᴜʟ</b> ❤️\n"
-        "╚════════════════════╝\n\n"
+        "╚══════════════════╝\n\n"
         f"👤 <b>ɴᴀᴍᴇ:</b> <code>{nickname}</code>\n"
         f"🌍 <b>ʀᴇɢɪᴏɴ:</b> <code>{reg}</code>\n"
         f"🆔 <b>ᴜɪᴅ:</b> <code>{uid_resp}</code>\n\n"
@@ -289,7 +289,7 @@ def format_like_result(data, region, uid, used):
         f"  📉 <b>ʙᴇꜰᴏʀᴇ:</b> <code>{before}</code>\n"
         f"  📈 <b>ᴀꜰᴛᴇʀ:</b> <code>{after}</code>\n"
         f"  ❤️ <b>ɢɪᴠᴇɴ:</b> <code>+{given}</code>\n"
-        "└────────────────────┘\n\n"
+        "└─────────────────┘\n\n"
         f"🎁 <b>ʏᴏᴜʀ ʟɪᴍɪᴛ:</b> <code>{used}/1</code>\n"
         "⏰ <b>ʀᴇsᴇᴛ:</b> <code>04:00 IST</code>"
     )
