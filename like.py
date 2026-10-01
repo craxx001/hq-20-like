@@ -389,7 +389,7 @@ async def like_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
             err = data.get("error") or data.get("message") or "ᴜɴᴋɴᴏᴡɴ ᴇʀʀᴏʀ"
             await msg.edit_text(
                 f"❌ <b>ꜰᴀɪʟᴇᴅ!</b>\n\n"
-                f"📝 <b>ʀᴇᴀsᴏɴ:</b> <code>{err}</code>\n"
+                f"📝 <b>ʀᴇᴀsᴏɴ:</b> ʟɪᴋᴇ ʟɪᴍɪᴛ ʀᴇᴀᴄʜᴇᴅ\n"
                 f"🌍 <b>ʀᴇɢɪᴏɴ:</b> <code>{region}</code>\n"
                 f"🆔 <b>ᴜɪᴅ:</b> <code>{uid}</code>",
                 parse_mode="HTML",
